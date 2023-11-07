@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "38974639914",
+    "project_id": "iuyg-android",
+    "storage_bucket": "iuyg-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38974639914:android:5a75da080e1f14d1c09853",
+        "android_client_info": {
+          "package_name": "com.example.nextgenweatherapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDCeaIpmfHPKdsIj9BacJIrl0UjhJo0TQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
