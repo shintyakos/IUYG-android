@@ -1,6 +1,9 @@
 name: Android CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # またはmainがメインブランチの名前であれば、それを指定します
 
 jobs:
   test:
@@ -35,6 +38,6 @@ jobs:
         gcloud config set project ${{ secrets.FIREBASE_PROJECT_ID }}
         gcloud firebase test android run \
           --type instrumentation \
-          --app build/outputs/apk/debug/app-debug.apk \
-          --test build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+          --app app/build/outputs/apk/debug/app-debug.apk \
+          --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
           --device model=Pixel8,version=34,locale=ja_JP,orientation=portrait
