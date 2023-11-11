@@ -56,6 +56,10 @@ android {
 }
 
 dependencies {
+    // 必要なCompose関連の依存関係を追加します。
+    val compose_version by extra { "1.6.0-alpha08" }
+    val nav_version by extra { "2.4.0-alpha10" }
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
@@ -68,9 +72,6 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
-    // 必要なCompose関連の依存関係を追加します。
-    val compose_version by extra { "1.6.0-alpha08" }
 
     implementation("androidx.compose.ui:ui:$compose_version")
     // Tooling support (プレビューなど)
@@ -115,4 +116,20 @@ dependencies {
     // Mockito
     testImplementation("org.mockito:mockito-core:3.11.2")
     androidTestImplementation("org.mockito:mockito-android:3.11.2")
+
+    // Kotlin
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
+    // Dynamic Feature Module Support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    // Jetpack Compose Integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    implementation("androidx.compose.ui:ui:1.5.4")
 }
+
