@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
 }
 
 android {
@@ -26,7 +27,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -55,7 +56,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
@@ -70,9 +70,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // 必要なCompose関連の依存関係を追加します。
-    val compose_version by extra{ "1.6.0-alpha08" }
+    val compose_version by extra { "1.6.0-alpha08" }
 
-    implementation("androidx.compose.ui:ui:${compose_version}")
+    implementation("androidx.compose.ui:ui:$compose_version")
     // Tooling support (プレビューなど)
     implementation("androidx.compose.ui:ui-tooling:$compose_version")
     // Foundation (Material design theme, layout, etc.)
@@ -101,9 +101,9 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 
     // Espresso
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation ("androidx.test:runner:1.5.2")
-    androidTestImplementation ("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
 
     // UI Automator
