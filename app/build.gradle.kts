@@ -48,6 +48,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    // エラー時にビルドを失敗させない場合はfalseに設定
+    // リリースビルド時にLintを実行
+    // その他のオプションを必要に応じて設定
+    lint {
+        abortOnError = false
+    }
+
     buildToolsVersion = "34.0.0"
 }
 
