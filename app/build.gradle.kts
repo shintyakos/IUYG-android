@@ -35,9 +35,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = "17"
+        allWarningsAsErrors = false
+        freeCompilerArgs += listOf(
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+        )
     }
+
     buildFeatures {
         compose = true
     }
@@ -58,20 +65,17 @@ android {
 dependencies {
     // 必要なCompose関連の依存関係を追加します。
     val compose_version by extra { "1.6.0-alpha08" }
-    val nav_version by extra { "2.4.0-alpha10" }
+    val nav_version by extra { "2.7.5" }
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
-    implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation("androidx.compose.ui:ui:$compose_version")
     // Tooling support (プレビューなど)
@@ -89,6 +93,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$compose_version")
     // If you use UI tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
+    // Needed for createAndroidComposeRule, but not createComposeRule:
+    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     // TODO: Add the dependencies for Firebase products you want to use
@@ -132,4 +138,3 @@ dependencies {
 
     implementation("androidx.compose.ui:ui:1.5.4")
 }
-
