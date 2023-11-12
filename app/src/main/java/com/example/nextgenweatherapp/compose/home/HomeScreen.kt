@@ -50,10 +50,10 @@ private fun HomeTopBar() {
         },
         actions = {
             IconButton(onClick = { /*TODO*/ }) {
-                Icon(Icons.Filled.Settings, contentDescription = "Settings")
+                Icon(Icons.Filled.Settings, contentDescription = "topSettings")
             }
             IconButton(onClick = { /*TODO*/ }) {
-                Icon(Icons.Filled.Notifications, contentDescription = "Notifications")
+                Icon(Icons.Filled.Notifications, contentDescription = "topNotifications")
             }
         }
     )
@@ -78,7 +78,7 @@ private fun HomeBottomBar() {
                 onClick = { selectedItem = index },
                 icon = {
                     itemMap.get(item)?.let {
-                        Icon(it, contentDescription = item, tint = Color.Black)
+                        Icon(it, contentDescription = "bottom$item", tint = Color.Black)
                     }
                 },
                 label = { Text(item) },

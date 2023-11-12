@@ -20,8 +20,8 @@ class HomeScreenTest {
             }
         }
         composeTestRule.onNodeWithText("Weather App").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("Settings").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("Notifications").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("topSettings").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("topNotifications").assertIsDisplayed()
     }
 
     @Test
@@ -31,7 +31,7 @@ class HomeScreenTest {
                 HomeScreen()
             }
         }
-        composeTestRule.onNodeWithContentDescription("Home").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("Favorites").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("bottomHome").assertIsDisplayed()
+        composeTestRule.onNodeWithContentDescription("bottomSettings").assertIsDisplayed()
     }
 }
