@@ -24,4 +24,6 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build and run tests
-      run: ./gradlew check
+      run: |
+        echo ${{ secrets.API_KEY }} | base64 --decode > ./local.properties
+        ./gradlew check
