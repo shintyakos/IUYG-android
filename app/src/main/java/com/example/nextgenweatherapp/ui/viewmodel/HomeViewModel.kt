@@ -2,7 +2,7 @@
  * HomeViewModel.kt
  * 天気情報に関するビジネスロジックを記述する
  */
-package com.example.nextgenweatherapp.viewmodel
+package com.example.nextgenweatherapp.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 

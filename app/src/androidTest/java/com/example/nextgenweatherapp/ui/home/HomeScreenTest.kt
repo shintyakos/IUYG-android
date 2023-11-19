@@ -1,9 +1,10 @@
-package com.example.nextgenweatherapp.compose.home
+package com.example.nextgenweatherapp.ui.home
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import com.example.nextgenweatherapp.ui.compose.home.HomeScreen
 import com.example.nextgenweatherapp.ui.theme.NextGenWeatherAppTheme
 import org.junit.Rule
 import org.junit.Test

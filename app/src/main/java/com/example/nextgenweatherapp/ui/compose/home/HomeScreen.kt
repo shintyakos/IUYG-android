@@ -1,4 +1,4 @@
-package com.example.nextgenweatherapp.compose.home
+package com.example.nextgenweatherapp.ui.compose.home
 
 import android.util.Log
 import androidx.compose.foundation.background
