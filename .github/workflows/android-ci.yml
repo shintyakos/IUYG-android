@@ -27,8 +27,9 @@ jobs:
       run: chmod +x ./gradlew
 
     - name: Build and run tests
-      run: ./gradlew build
-      run: ./gradlew assembleDebugAndroidTest
+      run: |
+        ./gradlew build
+        ./gradlew assembleDebugAndroidTest
 
     - name: Run tests in Firebase Test Lab
       env:
