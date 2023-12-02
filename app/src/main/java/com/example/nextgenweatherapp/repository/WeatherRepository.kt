@@ -20,7 +20,7 @@ class WeatherRepository : IWeatherRepository {
 
     override fun getCurrentWeather(): LiveData<Weather> {
         val response: Response<CityCodeResponse> = RetrofitService.weatherService.getCityCoordinates(
-            cityName = "Tokyo"
+            cityName = "Tokyo",
         ).execute()
         return MutableLiveData<Weather>()
     }

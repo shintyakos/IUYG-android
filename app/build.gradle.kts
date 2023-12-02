@@ -55,7 +55,7 @@ android {
         allWarningsAsErrors = false
         freeCompilerArgs += listOf(
             "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
         )
     }
 
@@ -142,6 +142,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
     // Compose
     implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
     // retorfit
     implementation("com.squareup.retrofit2:retrofit:2.3.0")
     implementation("com.squareup.retrofit2:converter-gson:2.3.0")
