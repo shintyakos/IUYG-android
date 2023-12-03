@@ -10,7 +10,6 @@ import com.example.nextgenweatherapp.BuildConfig
 import com.example.nextgenweatherapp.api.response.CityCodeResponse
 import com.example.nextgenweatherapp.api.response.WeatherResponse
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -23,9 +22,9 @@ interface WeatherService {
     ): Call<CityCodeResponse>
 
     @GET("/data/2.5/weather")
-    suspend fun getWeatherData(
+    fun getCurrentWeather(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
-        @Query("API_KEY") apiKey: String,
-    ): Response<WeatherResponse>
+        @Query("API_KEY") apiKey: String = BuildConfig.API_KEY,
+    ): Call<WeatherResponse>
 }

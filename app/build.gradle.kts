@@ -31,9 +31,9 @@ android {
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
         // local.propertiesのapi_keyに定義されている値を読み込む
-        val API_KEY = properties.getProperty("api_key")
+        val ApiKey = properties.getProperty("api_key")
         // ついでにbuildConfigFieldに定義
-        buildConfigField("String", "API_KEY", "\"${API_KEY}\"")
+        buildConfigField("String", "API_KEY", "\"${ApiKey}\"")
     }
 
     buildTypes {
@@ -55,7 +55,7 @@ android {
         allWarningsAsErrors = false
         freeCompilerArgs += listOf(
             "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
         )
     }
 
@@ -79,7 +79,7 @@ android {
 
 dependencies {
     // 必要なCompose関連の依存関係を追加します。
-    val compose_version by extra { "1.6.0-beta01" }
+    val compose_version by extra { "1.6.0-beta02" }
     val nav_version by extra { "2.7.5" }
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -142,6 +142,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$nav_version")
     // Compose
     implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
     // retorfit
     implementation("com.squareup.retrofit2:retrofit:2.3.0")
     implementation("com.squareup.retrofit2:converter-gson:2.3.0")
