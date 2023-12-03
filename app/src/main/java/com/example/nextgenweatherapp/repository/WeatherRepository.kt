@@ -7,20 +7,15 @@
  */
 package com.example.nextgenweatherapp.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.nextgenweatherapp.api.RetrofitService
 import com.example.nextgenweatherapp.api.response.CityCodeResponse
 import com.example.nextgenweatherapp.api.response.WeatherResponse
 import com.example.nextgenweatherapp.database.RealmFactory
 import com.example.nextgenweatherapp.database.data.WeatherModel
-import com.example.nextgenweatherapp.model.Weather
 import com.example.nextgenweatherapp.repository.interfaces.IWeatherRepository
 import retrofit2.Response
 
 class WeatherRepository : IWeatherRepository {
-    val isLoding = MutableLiveData<Boolean>()
-
     /**
      * getCurrentWeather() function is used to fetch the current weather data from the API.
      * @param - None
@@ -48,13 +43,15 @@ class WeatherRepository : IWeatherRepository {
     private fun saveWeatherDataToRealm(weather: WeatherResponse) {
         val realm = RealmFactory.getRealmInstance()
         realm.writeBlocking {
-            copyToRealm(WeatherModel().apply {
-                this.weatherId = 0
-                this.cityName = "Tokyo"
-                this.temperature = weather.main.temp
-                this.weatherDescription = weather.weather.description
-                this.icon = weather.weather.icon
-            })
+            copyToRealm(
+                WeatherModel().apply {
+                    this.weatherId = 0
+                    this.cityName = "Tokyo"
+                    this.temperature = weather.main.temp
+                    this.weatherDescription = weather.weather.description
+                    this.icon = weather.weather.icon
+                },
+            )
         }
     }
 

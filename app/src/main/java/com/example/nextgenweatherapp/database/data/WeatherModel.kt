@@ -11,4 +11,3 @@ open class WeatherModel : RealmObject {
     var weatherDescription: String = ""
     var icon: String = ""
 }
-

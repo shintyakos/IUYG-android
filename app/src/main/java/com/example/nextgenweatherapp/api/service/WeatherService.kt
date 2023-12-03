@@ -10,7 +10,6 @@ import com.example.nextgenweatherapp.BuildConfig
 import com.example.nextgenweatherapp.api.response.CityCodeResponse
 import com.example.nextgenweatherapp.api.response.WeatherResponse
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
