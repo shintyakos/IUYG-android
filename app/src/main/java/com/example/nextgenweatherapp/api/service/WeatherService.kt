@@ -23,9 +23,9 @@ interface WeatherService {
     ): Call<CityCodeResponse>
 
     @GET("/data/2.5/weather")
-    suspend fun getWeatherData(
+    fun getCurrentWeather(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
-        @Query("API_KEY") apiKey: String,
-    ): Response<WeatherResponse>
+        @Query("API_KEY") apiKey: String = BuildConfig.API_KEY,
+    ): Call<WeatherResponse>
 }
