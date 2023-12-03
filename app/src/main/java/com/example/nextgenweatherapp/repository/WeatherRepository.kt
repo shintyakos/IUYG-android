@@ -62,5 +62,4 @@ class WeatherRepository : IWeatherRepository {
     override suspend fun getWeeklyWeather() {
         TODO("Not yet implemented")
     }
-
 }
