@@ -43,7 +43,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -55,17 +54,18 @@ import androidx.compose.ui.unit.sp
 import com.example.nextgenweatherapp.R
 
 private val pageCount = { 0 }
+private const val ScreenName = "HomeScreen"
 
 @Preview(device = "id:pixel_3")
 @Composable
 fun HomeScreen() {
     val pagerState = rememberPagerState(initialPage = 0, initialPageOffsetFraction = 0F, pageCount)
+    Log.d(ScreenName, "${pagerState.currentPage}")
     Scaffold(
         topBar = { HomeTopBar() },
         bottomBar = { HomeBottomBar() },
-    ) {
-        HomePager(pagerState = pagerState, padding = it)
-    }
+        content = { HomePager(it) },
+    )
 }
 
 @Composable
@@ -109,7 +109,7 @@ private fun HomeTopBar() {
 private fun HomeBottomBar() {
     var selectedItem by remember { mutableStateOf(0) }
     val items = listOf("Home", "Settings")
-    val itemMap = mapOf<String, ImageVector>(
+    val itemMap = mapOf(
         "Home" to Icons.Filled.Home,
         "Settings" to Icons.Filled.Settings,
     )
@@ -121,7 +121,7 @@ private fun HomeBottomBar() {
                 selected = selectedItem == index,
                 onClick = { selectedItem = index },
                 icon = {
-                    itemMap.get(item)?.let {
+                    itemMap[item]?.let {
                         Icon(it, contentDescription = "bottom$item", tint = Color.Black)
                     }
                 },
@@ -132,7 +132,7 @@ private fun HomeBottomBar() {
 }
 
 @Composable
-private fun HomePager(pagerState: Any, padding: PaddingValues) {
+private fun HomePager(padding: PaddingValues) {
     BoxWithConstraints {
         val screenHeight = with(LocalDensity.current) { constraints.maxHeight.toDp() }
         Log.d("", "$screenHeight")
@@ -147,10 +147,10 @@ private fun HomePager(pagerState: Any, padding: PaddingValues) {
             currentWeather()
         }
         Box(modifier = Modifier.weight(40.0f, true).fillMaxWidth()) {
-            hourlyWether()
+            hourlyWeather()
         }
         Box(modifier = Modifier.weight(40.0f, true).fillMaxWidth()) {
-            weeklyWether()
+            weeklyWeather()
         }
     }
 }
@@ -162,7 +162,7 @@ private fun HomePager(pagerState: Any, padding: PaddingValues) {
 private fun currentWeather() {
     Column {
         Box(modifier = Modifier.weight(40.0f, true).fillMaxWidth()) {
-            secondTitle("現在の天気", true, "Details")
+            secondTitle("現在の天気", true)
         }
         Box(modifier = Modifier.weight(60.0f, true).fillMaxWidth()) {
             Row(
@@ -172,7 +172,7 @@ private fun currentWeather() {
             ) {
                 Row(
                     modifier = Modifier
-                        .weight(20.0f, true)
+                        .weight(14.0f, true)
                         .fillMaxHeight()
                         .background(
                             color = Color(0x1A000000),
@@ -183,7 +183,7 @@ private fun currentWeather() {
                     verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
                     horizontalAlignment = Alignment.Start,
                     modifier = Modifier
-                        .weight(80.0f, true)
+                        .weight(86.0f, true)
                         .fillMaxHeight(),
                 ) {
                     Column(modifier = Modifier.fillMaxSize()) {
@@ -191,8 +191,8 @@ private fun currentWeather() {
                             Text(
                                 text = "Tokyo, Japan",
                                 style = TextStyle(
-                                    fontSize = 24.sp,
-                                    lineHeight = 24.sp,
+                                    fontSize = 18.sp,
+                                    lineHeight = 20.sp,
                                     fontFamily = FontFamily(Font(R.font.robotoflex_regular)),
                                     fontWeight = FontWeight(500),
                                     color = Color(0xFF000000),
@@ -222,7 +222,7 @@ private fun currentWeather() {
  *
  */
 @Composable
-private fun hourlyWether() {
+private fun hourlyWeather() {
     Column {
         Box(modifier = Modifier.weight(20.0f, true).fillMaxWidth()) {
             secondTitle("時間ごとの天気")
@@ -249,10 +249,10 @@ private fun hourlyWether() {
  *
  */
 @Composable
-private fun weeklyWether() {
+private fun weeklyWeather() {
     Column {
         Box(modifier = Modifier.weight(20.0f, true).fillMaxWidth()) {
-            secondTitle("週間ごとの天気", true, "Map")
+            secondTitle("週間ごとの天気", true)
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.CenterVertically),
@@ -273,7 +273,7 @@ private fun weeklyWether() {
 }
 
 @Composable
-private fun secondTitle(title: String, isButton: Boolean = false, buttobName: String = "") {
+private fun secondTitle(title: String, isButton: Boolean = false) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -307,7 +307,7 @@ private fun secondTitle(title: String, isButton: Boolean = false, buttobName: St
                         .padding(start = 8.dp, top = 3.dp, end = 4.dp, bottom = 3.dp),
                 ) {
                     Text(
-                        text = buttobName,
+                        text = "Details",
                         style = TextStyle(
                             fontSize = 12.sp,
                             lineHeight = 16.sp,
@@ -322,7 +322,7 @@ private fun secondTitle(title: String, isButton: Boolean = false, buttobName: St
                     )
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowForwardIos,
-                        contentDescription = buttobName,
+                        contentDescription = "Details",
                         modifier = Modifier
                             .padding(1.dp)
                             .width(12.dp)
@@ -376,7 +376,7 @@ private fun list() {
                     fontFamily = FontFamily(Font(R.font.robotoflex_regular)),
                     fontWeight = FontWeight(400),
                     color = Color(0xFF000000),
-                    ),
+                ),
                 modifier = Modifier
                     .width(296.dp)
                     .height(20.dp),
