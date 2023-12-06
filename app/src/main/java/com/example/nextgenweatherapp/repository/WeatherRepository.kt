@@ -21,7 +21,7 @@ class WeatherRepository : IWeatherRepository {
      * @param - None
      * @return - None
      */
-    override suspend fun getCurrentWeather() {
+    override suspend fun getCurrentWeather(): WeatherResponse? {
         val cityCodeResponse: Response<CityCodeResponse> = RetrofitService.weatherService.getCityCoordinates(
             cityName = "Tokyo",
         ).execute()
@@ -33,26 +33,29 @@ class WeatherRepository : IWeatherRepository {
                 ).execute()
                 if (weatherResponse.isSuccessful) {
                     weatherResponse.body()?.let { weather ->
-                        saveWeatherDataToRealm(weather)
+                        val weatherModel = WeatherModel().apply {
+                            this.weatherId = 0
+                            this.cityName = "Tokyo"
+                            this.temperature = weather.main.temp
+                            this.weatherDescription = weather.weather.description
+                            this.icon = weather.weather.icon
+                        }
+                        saveWeatherDataToRealm(weatherModel)
+                        return weather
                     }
                 }
             }
         }
+
+        return null
     }
 
-    private fun saveWeatherDataToRealm(weather: WeatherResponse) {
+    private fun saveWeatherDataToRealm(weather: WeatherModel) {
         val realm = RealmFactory.getRealmInstance()
         realm.writeBlocking {
-            copyToRealm(
-                WeatherModel().apply {
-                    this.weatherId = 0
-                    this.cityName = "Tokyo"
-                    this.temperature = weather.main.temp
-                    this.weatherDescription = weather.weather.description
-                    this.icon = weather.weather.icon
-                },
-            )
+            copyToRealm(weather)
         }
+        realm.close()
     }
 
     override suspend fun getHourlyWeather() {

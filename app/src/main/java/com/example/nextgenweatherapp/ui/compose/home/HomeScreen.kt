@@ -52,13 +52,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nextgenweatherapp.R
+import com.example.nextgenweatherapp.ui.viewmodel.HomeViewModel
 
 private val pageCount = { 0 }
 private const val ScreenName = "HomeScreen"
 
-@Preview(device = "id:pixel_3")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(viewModel: HomeViewModel? = null) {
+    val weather by remember { mutableStateOf(viewModel!!.loadWeather()) }
     val pagerState = rememberPagerState(initialPage = 0, initialPageOffsetFraction = 0F, pageCount)
     Log.d(ScreenName, "${pagerState.currentPage}")
     Scaffold(
@@ -402,4 +403,10 @@ private fun list() {
             .height(1.dp)
             .border(width = 1.dp, color = Color(0x1A000000)),
     ) {}
+}
+
+@Preview(device = "id:pixel_3")
+@Composable
+fun PreviewHomeScreen() {
+    HomeScreen(HomeViewModel())
 }

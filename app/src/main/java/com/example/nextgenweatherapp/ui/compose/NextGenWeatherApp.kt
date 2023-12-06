@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.nextgenweatherapp.ui.compose.home.HomeScreen
+import com.example.nextgenweatherapp.ui.viewmodel.HomeViewModel
 
 @Composable
 fun NextGenWeatherApp() {
@@ -16,9 +17,10 @@ fun NextGenWeatherApp() {
 @Composable
 fun NextGenWeatherNavHost(navController: NavHostController) {
 //    val activity = (LocalContext.current as Activity)
+    val homeViewModel = HomeViewModel()
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
-            HomeScreen()
+            HomeScreen(homeViewModel)
         }
     }
 }

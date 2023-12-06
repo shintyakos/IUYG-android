@@ -1,7 +1,8 @@
 package com.example.nextgenweatherapp.model
 
 data class Weather(
-    val wheatherId: Int,
-    val locationId: Int,
-    val temperature: Int,
+    val cityName: String,
+    val temperature: Double,
+    val weatherDescription: String,
+    val icon: String,
 )

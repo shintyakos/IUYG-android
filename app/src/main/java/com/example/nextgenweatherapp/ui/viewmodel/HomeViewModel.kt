@@ -15,15 +15,24 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
     private val weatherData = MutableLiveData<Weather>()
-    private lateinit var weatherRepository: IWeatherRepository
+    private val weatherRepository: IWeatherRepository = WeatherRepository()
     val weatherLiveData: LiveData<Weather> = weatherData
 
-    init {
-        weatherRepository = WeatherRepository()
-    }
     fun loadWeather() {
         viewModelScope.launch {
-            weatherRepository.getCurrentWeather()
+            try {
+                weatherRepository.getCurrentWeather()?.let {
+                    val weather = Weather(
+                        cityName = it.name ?: "",
+                        temperature = it.main?.temp ?: 0.0,
+                        weatherDescription = it.weather?.description ?: "",
+                        icon = it.weather.icon ?: "",
+                    )
+                    weatherData.postValue(weather)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }
