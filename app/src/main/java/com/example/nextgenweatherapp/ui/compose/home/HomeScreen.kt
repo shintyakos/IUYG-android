@@ -35,7 +35,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -52,14 +54,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.nextgenweatherapp.R
+import com.example.nextgenweatherapp.model.Weather
 import com.example.nextgenweatherapp.ui.viewmodel.HomeViewModel
 
 private val pageCount = { 0 }
 private const val ScreenName = "HomeScreen"
+private lateinit var weather: State<Weather?>
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel? = null) {
-    val weather by remember { mutableStateOf(viewModel!!.loadWeather()) }
+fun HomeScreen(viewModel: HomeViewModel) {
+    weather = viewModel.weatherData.observeAsState()
     val pagerState = rememberPagerState(initialPage = 0, initialPageOffsetFraction = 0F, pageCount)
     Log.d(ScreenName, "${pagerState.currentPage}")
     Scaffold(
@@ -135,8 +139,7 @@ private fun HomeBottomBar() {
 @Composable
 private fun HomePager(padding: PaddingValues) {
     BoxWithConstraints {
-        val screenHeight = with(LocalDensity.current) { constraints.maxHeight.toDp() }
-        Log.d("", "$screenHeight")
+        with(LocalDensity.current) { constraints.maxHeight.toDp() }
     }
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.Top),
@@ -408,5 +411,7 @@ private fun list() {
 @Preview(device = "id:pixel_3")
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen(HomeViewModel())
+    val viewModel = HomeViewModel()
+    viewModel.PreviewLoadWeather()
+    HomeScreen(viewModel)
 }

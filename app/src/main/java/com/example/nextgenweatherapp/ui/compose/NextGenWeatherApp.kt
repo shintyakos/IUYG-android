@@ -18,6 +18,7 @@ fun NextGenWeatherApp() {
 fun NextGenWeatherNavHost(navController: NavHostController) {
 //    val activity = (LocalContext.current as Activity)
     val homeViewModel = HomeViewModel()
+    homeViewModel.loadWeather()
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen(homeViewModel)

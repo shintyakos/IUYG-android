@@ -14,25 +14,38 @@ import com.example.nextgenweatherapp.repository.interfaces.IWeatherRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
-    private val weatherData = MutableLiveData<Weather>()
     private val weatherRepository: IWeatherRepository = WeatherRepository()
-    val weatherLiveData: LiveData<Weather> = weatherData
+    private val _weatherData = MutableLiveData<Weather>()
+    val weatherData: LiveData<Weather> = _weatherData
 
+    /**
+     * 天気情報を取得する
+     */
     fun loadWeather() {
         viewModelScope.launch {
             try {
                 weatherRepository.getCurrentWeather()?.let {
                     val weather = Weather(
-                        cityName = it.name ?: "",
-                        temperature = it.main?.temp ?: 0.0,
-                        weatherDescription = it.weather?.description ?: "",
-                        icon = it.weather.icon ?: "",
+                        cityName = it.name,
+                        temperature = it.main.temp,
+                        weatherDescription = it.weather.description,
+                        icon = it.weather.icon,
                     )
-                    weatherData.postValue(weather)
+                    _weatherData.postValue(weather)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    fun PreviewLoadWeather() {
+        val weather = Weather(
+            cityName = "Tokyo",
+            temperature = 20.0,
+            weatherDescription = "Cloudy",
+            icon = "10d",
+        )
+        _weatherData.postValue(weather)
     }
 }
