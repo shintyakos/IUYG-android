@@ -64,8 +64,6 @@ private val weather: State<Weather?>
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
     weather = viewModel.weatherData.observeAsState()
-    val pagerState = rememberPagerState(initialPage = 0, initialPageOffsetFraction = 0F, pageCount)
-    Log.d(ScreenName, "${pagerState.currentPage}")
     Scaffold(
         topBar = { HomeTopBar() },
         bottomBar = { HomeBottomBar() },
