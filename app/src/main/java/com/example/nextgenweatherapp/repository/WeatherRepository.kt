@@ -19,7 +19,7 @@ class WeatherRepository : IWeatherRepository {
     /**
      * getCurrentWeather() function is used to fetch the current weather data from the API.
      * @param - None
-     * @return - None
+     * @return - WeatherResponse? 現在の天気データを返すか、またはnullを返す
      */
     override suspend fun getCurrentWeather(): WeatherResponse? {
         val cityCodeResponse: Response<CityCodeResponse> = RetrofitService.weatherService.getCityCoordinates(
