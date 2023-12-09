@@ -59,7 +59,7 @@ import com.example.nextgenweatherapp.ui.viewmodel.HomeViewModel
 
 private val pageCount = { 0 }
 private const val ScreenName = "HomeScreen"
-private lateinit var weather: State<Weather?>
+private val weather: State<Weather?>
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
