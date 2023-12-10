@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(
     val coord: Coord,
-    val weather: Weather,
+    val weather: Array<Weather>,
     val base: String,
     val main: Main,
     val visibility: Int,

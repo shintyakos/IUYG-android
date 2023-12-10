@@ -1,10 +1,11 @@
 package com.example.nextgenweatherapp.repository.interfaces
 
 import com.example.nextgenweatherapp.api.response.WeatherResponse
+import com.example.nextgenweatherapp.database.data.WeatherModel
 
 interface IWeatherRepository {
     // 現在の天気データの取得ロジックを実装する
-    suspend fun getCurrentWeather(): WeatherResponse?
+    suspend fun getCurrentWeather(): WeatherModel?
 
     // 毎時の天気データの取得ロジックを実装する
     suspend fun getHourlyWeather()

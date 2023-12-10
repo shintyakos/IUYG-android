@@ -10,15 +10,13 @@ import com.example.nextgenweatherapp.ui.viewmodel.HomeViewModel
 
 @Composable
 fun NextGenWeatherApp() {
+    val homeViewModel = HomeViewModel()
     val navController = rememberNavController()
-    NextGenWeatherNavHost(navController)
+    NextGenWeatherNavHost(navController, homeViewModel)
 }
 
 @Composable
-fun NextGenWeatherNavHost(navController: NavHostController) {
-//    val activity = (LocalContext.current as Activity)
-    val homeViewModel = HomeViewModel()
-    homeViewModel.loadWeather()
+fun NextGenWeatherNavHost(navController: NavHostController, homeViewModel: HomeViewModel) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen(homeViewModel)

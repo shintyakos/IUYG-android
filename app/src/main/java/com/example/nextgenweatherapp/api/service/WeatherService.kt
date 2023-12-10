@@ -19,12 +19,13 @@ interface WeatherService {
         @Query("q") cityName: String,
         @Query("limit") limit: Int = 5,
         @Query("appid") apiKey: String = BuildConfig.API_KEY,
-    ): Call<CityCodeResponse>
+    ): Call<Array<CityCodeResponse>>
 
     @GET("/data/2.5/weather")
     fun getCurrentWeather(
         @Query("lat") lat: String,
         @Query("lon") lon: String,
-        @Query("API_KEY") apiKey: String = BuildConfig.API_KEY,
+        @Query("appid") apiKey: String = BuildConfig.API_KEY,
+        @Query("units") units: String = "metric",
     ): Call<WeatherResponse>
 }

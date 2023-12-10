@@ -13,6 +13,7 @@ import com.example.nextgenweatherapp.api.response.WeatherResponse
 import com.example.nextgenweatherapp.database.RealmFactory
 import com.example.nextgenweatherapp.database.data.WeatherModel
 import com.example.nextgenweatherapp.repository.interfaces.IWeatherRepository
+import io.realm.kotlin.delete
 import retrofit2.Response
 
 class WeatherRepository : IWeatherRepository {
@@ -21,27 +22,31 @@ class WeatherRepository : IWeatherRepository {
      * @param - None
      * @return - WeatherResponse? 現在の天気データを返すか、またはnullを返す
      */
-    override suspend fun getCurrentWeather(): WeatherResponse? {
-        val cityCodeResponse: Response<CityCodeResponse> = RetrofitService.weatherService.getCityCoordinates(
+    override suspend fun getCurrentWeather(): WeatherModel? {
+        val cityCodeResponse: Response<Array<CityCodeResponse>> = RetrofitService.weatherService.getCityCoordinates(
             cityName = "Tokyo",
         ).execute()
         if (cityCodeResponse.isSuccessful) {
             cityCodeResponse.body()?.let { cityCode ->
-                val weatherResponse = RetrofitService.weatherService.getCurrentWeather(
-                    lat = cityCode.lat.toString(),
-                    lon = cityCode.lon.toString(),
-                ).execute()
-                if (weatherResponse.isSuccessful) {
-                    weatherResponse.body()?.let { weather ->
-                        val weatherModel = WeatherModel().apply {
-                            this.weatherId = 0
-                            this.cityName = "Tokyo"
-                            this.temperature = weather.main.temp
-                            this.weatherDescription = weather.weather.description
-                            this.icon = weather.weather.icon
+                cityCode.forEach { cityList ->
+                    if (cityList.name == "Tokyo") {
+                        val weatherResponse = RetrofitService.weatherService.getCurrentWeather(
+                            lat = cityList.lat.toString(),
+                            lon = cityList.lon.toString(),
+                        ).execute()
+                        if (weatherResponse.isSuccessful) {
+                            weatherResponse.body()?.let { weather ->
+                                val weatherModel = WeatherModel().apply {
+                                    this.weatherId = 0
+                                    this.cityName = "Tokyo"
+                                    this.temperature = weather.main.temp
+                                    this.weatherDescription = weather.weather[0].description
+                                    this.icon = weather.weather[0].icon
+                                }
+                                saveWeatherDataToRealm(weatherModel)
+                                return weatherModel
+                            }
                         }
-                        saveWeatherDataToRealm(weatherModel)
-                        return weather
                     }
                 }
             }
@@ -53,6 +58,7 @@ class WeatherRepository : IWeatherRepository {
     private fun saveWeatherDataToRealm(weather: WeatherModel) {
         val realm = RealmFactory.getRealmInstance()
         realm.writeBlocking {
+            delete<WeatherModel>()
             copyToRealm(weather)
         }
         realm.close()
