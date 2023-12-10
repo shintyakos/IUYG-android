@@ -1,6 +1,6 @@
 package com.example.nextgenweatherapp.api
 
-import com.example.nextgenweatherapp.api.service.service.WeatherService
+import com.example.nextgenweatherapp.api.service.WeatherService
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
@@ -17,7 +17,7 @@ class RetrofitService {
     }
 
     private fun createRetrofitService(): Retrofit {
-        val apiUrl = "http://api.openweathermap.org"
+        val apiUrl = "https://weather.visualcrossing.com"
         val gson = GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create()
