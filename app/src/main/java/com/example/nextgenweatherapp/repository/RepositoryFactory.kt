@@ -7,5 +7,9 @@ class RepositoryFactory {
         fun getWeatherRepository(): IWeatherRepository {
             return WeatherRepository()
         }
+
+        fun getPreviewWeatherRepository(): IWeatherRepository {
+            return PreviewWeatherRepository()
+        }
     }
 }

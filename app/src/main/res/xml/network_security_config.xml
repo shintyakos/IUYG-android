@@ -4,6 +4,6 @@
     <base-config cleartextTrafficPermitted="false" />
     <!-- ドメイン毎の設定 -->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">api.openweathermap.org</domain>
+        <domain includeSubdomains="true">https://weather.visualcrossing.com</domain>
     </domain-config>
 </network-security-config>

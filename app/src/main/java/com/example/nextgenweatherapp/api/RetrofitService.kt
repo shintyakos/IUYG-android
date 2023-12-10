@@ -17,7 +17,7 @@ class RetrofitService {
     }
 
     private fun createRetrofitService(): Retrofit {
-        val apiUrl = "http://api.openweathermap.org"
+        val apiUrl = "https://weather.visualcrossing.com"
         val gson = GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create()

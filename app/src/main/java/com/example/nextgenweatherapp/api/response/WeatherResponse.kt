@@ -3,64 +3,130 @@ package com.example.nextgenweatherapp.api.response
 import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(
-    val coord: Coord,
-    val weather: Array<Weather>,
-    val base: String,
-    val main: Main,
-    val visibility: Int,
-    val wind: Wind,
-    val rain: Rain,
-    val clouds: Clouds,
-    val dt: Long,
-    val sys: Sys,
-    val timezone: Long,
-    val id: Long,
-    val name: String,
-    val cod: Int,
+    @SerializedName("queryCost")
+    val queryCost: String,
+    @SerializedName("latitude")
+    val latitude: String,
+    @SerializedName("longitude")
+    val longitude: String,
+    @SerializedName("resolvedAddress")
+    val resolvedAddress: String,
+    @SerializedName("address")
+    val address: String,
+    @SerializedName("timezone")
+    val timezone: String,
+    @SerializedName("timezoneName")
+    val timezoneName: String,
+    @SerializedName("days")
+    val days: List<Day>,
+    @SerializedName("alerts")
+    val alerts: List<String>,
+    @SerializedName("currentConditions")
+    val currentConditions: CurrentCondition,
 )
 
-data class Coord(
-    val lon: Double,
-    val lat: Double,
-)
-
-data class Weather(
-    val id: Int,
-    val main: String,
+data class Day(
+    val datetime: String,
+    val datetimeEpoch: Int,
+    val tempmax: Double,
+    val tempmin: Double,
+    val temp: Double,
+    val feelslikemax: Double,
+    val feelslikemin: Double,
+    val feelslike: Double,
+    val dew: Double,
+    val humidity: Double,
+    val precip: Double,
+    val precipprob: Double,
+    val precipcover: Double,
+    val preciptype: List<String>?,
+    val snow: Double?,
+    val snowdepth: Double?,
+    val windgust: Double,
+    val windspeed: Double,
+    val winddir: Double,
+    val pressure: Double,
+    val cloudcover: Double,
+    val visibility: Double,
+    val solarradiation: Double,
+    val solarenergy: Double,
+    val uvindex: Double,
+    val sunrise: String,
+    val sunriseEpoch: Int,
+    val sunset: String,
+    val sunsetEpoch: Int,
+    val moonphase: Double,
+    val conditions: String,
     val description: String,
     val icon: String,
+    val stations: List<String>,
+    val source: String,
+    val hours: List<Hour>,
+    val precipsum: Int,
+    val precipsumnormal: Int,
+    val snowsum: Int,
+    val datetimeInstance: String
+
 )
 
-data class Main(
+data class Hour(
+    val datetime: String,
+    val datetimeEpoch: Int,
     val temp: Double,
-    val feels_like: Double,
-    val temp_min: Double,
-    val temp_max: Double,
-    val pressure: Int,
-    val humidity: Int,
-    val sea_level: Int,
-    val grnd_level: Int,
+    val feelslike: Double,
+    val dew: Double,
+    val humidity: Double,
+    val precip: Double,
+    val precipprob: Double,
+    val precipcover: Double,
+    val preciptype: List<String>?,
+    val snow: Double?,
+    val snowdepth: Double?,
+    val windgust: Double,
+    val windspeed: Double,
+    val winddir: Double,
+    val pressure: Double,
+    val cloudcover: Double,
+    val visibility: Double,
+    val solarradiation: Double,
+    val solarenergy: Double,
+    val uvindex: Double,
+    val conditions: String,
+    val description: String,
+    val icon: String,
+    val stations: List<String>,
+    val source: String,
+    val datetimeInstance: String
 )
 
-data class Wind(
-    val speed: Double,
-    val deg: Int,
-    val gust: Double,
-)
-
-data class Rain(
-    @SerializedName("1h")
-    val oneHour: Double,
-)
-
-data class Clouds(
-    val all: Int,
-)
-
-data class Sys(
-    val type: Int,
-    val id: Int,
-    val country: String,
-    val sunrise: Long,
-    val sunset: Long,
+data class CurrentCondition(
+    val datetime: String,
+    val datetimeEpoch: Int,
+    val temp: Double,
+    val feelslike: Double,
+    val dew: Double,
+    val humidity: Double,
+    val precip: Double,
+    val precipprob: Double,
+    val snow: Double?,
+    val snowdepth: Double?,
+    val preciptype: List<String>?,
+    val windgust: Double,
+    val windspeed: Double,
+    val winddir: Double,
+    val pressure: Double,
+    val visibility: Double,
+    val cloudcover: Double,
+    val solarradiation: Double,
+    val solarenergy: Double,
+    val uvindex: Double,
+    val conditions: String,
+    val icon: String,
+    val stations: List<String>,
+    val source: String,
+    val sunrise: String,
+    val sunriseEpoch: Int,
+    val sunset: String,
+    val sunsetEpoch: Int,
+    val moonphase: Double
 )

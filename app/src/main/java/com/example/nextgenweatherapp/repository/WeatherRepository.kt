@@ -8,7 +8,6 @@
 package com.example.nextgenweatherapp.repository
 
 import com.example.nextgenweatherapp.api.RetrofitService
-import com.example.nextgenweatherapp.api.response.CityCodeResponse
 import com.example.nextgenweatherapp.api.response.WeatherResponse
 import com.example.nextgenweatherapp.database.RealmFactory
 import com.example.nextgenweatherapp.database.data.WeatherModel
@@ -16,42 +15,27 @@ import com.example.nextgenweatherapp.repository.interfaces.IWeatherRepository
 import io.realm.kotlin.delete
 import retrofit2.Response
 
-class WeatherRepository : IWeatherRepository {
+class WeatherRepository() : IWeatherRepository {
     /**
      * getCurrentWeather() function is used to fetch the current weather data from the API.
      * @param - None
      * @return - WeatherResponse? 現在の天気データを返すか、またはnullを返す
      */
     override suspend fun getCurrentWeather(): WeatherModel? {
-        val cityCodeResponse: Response<Array<CityCodeResponse>> = RetrofitService.weatherService.getCityCoordinates(
-            cityName = "Tokyo",
-        ).execute()
-        if (cityCodeResponse.isSuccessful) {
-            cityCodeResponse.body()?.let { cityCode ->
-                cityCode.forEach { cityList ->
-                    if (cityList.name == "Tokyo") {
-                        val weatherResponse = RetrofitService.weatherService.getCurrentWeather(
-                            lat = cityList.lat.toString(),
-                            lon = cityList.lon.toString(),
-                        ).execute()
-                        if (weatherResponse.isSuccessful) {
-                            weatherResponse.body()?.let { weather ->
-                                val weatherModel = WeatherModel().apply {
-                                    this.weatherId = 0
-                                    this.cityName = "Tokyo"
-                                    this.temperature = weather.main.temp
-                                    this.weatherDescription = weather.weather[0].description
-                                    this.icon = weather.weather[0].icon
-                                }
-                                saveWeatherDataToRealm(weatherModel)
-                                return weatherModel
-                            }
-                        }
-                    }
+        val weatherResponse: Response<WeatherResponse> = RetrofitService.weatherService.getWeather().execute()
+        if (weatherResponse.isSuccessful) {
+            val weather = weatherResponse.body()?.let {
+                WeatherModel().apply {
+                    weatherId = 0
+                    cityName = it.resolvedAddress
+                    temperature = it.currentConditions.temp
+                    weatherDescription = it.currentConditions.conditions
+                    icon = it.currentConditions.icon
                 }
             }
+            weather?.let { saveWeatherDataToRealm(it) }
+            return weather
         }
-
         return null
     }
 
@@ -62,13 +46,5 @@ class WeatherRepository : IWeatherRepository {
             copyToRealm(weather)
         }
         realm.close()
-    }
-
-    override suspend fun getHourlyWeather() {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getWeeklyWeather() {
-        TODO("Not yet implemented")
     }
 }

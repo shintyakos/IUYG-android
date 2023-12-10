@@ -4,5 +4,5 @@ data class Weather(
     val cityName: String,
     val temperature: String,
     val weatherDescription: String,
-    val icon: String,
+    val icon: Int,
 )

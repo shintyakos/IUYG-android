@@ -1,6 +1,5 @@
 package com.example.nextgenweatherapp.ui.compose.home
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -47,7 +46,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -55,15 +54,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImagePainter
-import coil.compose.ImagePainter
-import coil.compose.rememberAsyncImagePainter
 import com.example.nextgenweatherapp.R
 import com.example.nextgenweatherapp.model.Weather
+import com.example.nextgenweatherapp.repository.RepositoryFactory
 import com.example.nextgenweatherapp.ui.viewmodel.HomeViewModel
-
-private val pageCount = { 0 }
-private const val ScreenName = "HomeScreen"
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel) {
@@ -168,8 +162,6 @@ private fun HomePager(padding: PaddingValues, weather: State<Weather?>) {
  */
 @Composable
 private fun currentWeather(weather: Weather) {
-    val painter = rememberAsyncImagePainter(model = weather.icon)
-    Log.d("", "painter: $painter")
     Column {
         Box(modifier = Modifier.weight(40.0f, true).fillMaxWidth()) {
             secondTitle("現在の天気", true)
@@ -181,7 +173,7 @@ private fun currentWeather(weather: Weather) {
                 modifier = Modifier.fillMaxSize().padding(start = 12.dp, top = 16.dp, end = 12.dp),
             ) {
                 Image(
-                    painter = painter,
+                    painter = painterResource(id = weather.icon),
                     contentDescription = "weatherIcon",
                     modifier = Modifier
                         .padding(1.dp)
@@ -418,7 +410,6 @@ private fun list() {
 @Preview(device = "id:pixel_3")
 @Composable
 fun PreviewHomeScreen() {
-    val viewModel = HomeViewModel()
-    viewModel.PreviewLoadWeather()
+    val viewModel = HomeViewModel(RepositoryFactory.getPreviewWeatherRepository())
     HomeScreen(viewModel)
 }
