@@ -62,9 +62,9 @@ data class Day(
     val stations: List<String>,
     val source: String,
     val hours: List<Hour>,
-    val precipsum: Int,
-    val precipsumnormal: Int,
-    val snowsum: Int,
+    val precipsum: Double,
+    val precipsumnormal: Double,
+    val snowsum: Double,
     val datetimeInstance: String
 
 )
