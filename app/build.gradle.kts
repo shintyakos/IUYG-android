@@ -147,8 +147,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.3.0")
     implementation("com.squareup.retrofit2:converter-gson:2.3.0")
     // okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    implementation("com.squareup.okhttp3:logging-interceptor:3.3.1")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     // Realm
     // If using Kotlin
     implementation("io.realm.kotlin:library-base:1.12.0")
@@ -156,4 +156,7 @@ dependencies {
     implementation("io.realm.kotlin:library-sync:1.12.0")
     // If using coroutines with the SDK
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+
+    implementation("io.coil-kt:coil:2.2.2")
+    implementation("io.coil-kt:coil-compose:2.2.2")
 }
