@@ -64,8 +64,8 @@ class HomeViewModel(private val weatherRepository: IWeatherRepository) : ViewMod
             "snow-showers-night" -> R.drawable.snow_showers_night
             "thunder" -> R.drawable.thunder
             "thunder-rain" -> R.drawable.thunder_rain
-            "thunder-showers-day" -> R.drawable.snow_showers_day
-            "thunder-showers-night" -> R.drawable.snow_showers_night
+            "thunder-showers-day" -> R.drawable.thunder_showers_day
+            "thunder-showers-night" -> R.drawable.thunder_showers_night
             "wind" -> R.drawable.wind
             else -> R.drawable.clear_day
         }
