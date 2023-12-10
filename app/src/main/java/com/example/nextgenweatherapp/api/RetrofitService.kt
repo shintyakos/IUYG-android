@@ -1,6 +1,6 @@
 package com.example.nextgenweatherapp.api
 
-import com.example.nextgenweatherapp.api.service.service.WeatherService
+import com.example.nextgenweatherapp.api.service.WeatherService
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
