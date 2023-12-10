@@ -4,7 +4,7 @@
  * @param - None
  * @return - None
  */
-package com.example.nextgenweatherapp.api.service.service
+package com.example.nextgenweatherapp.api.service
 
 import com.example.nextgenweatherapp.BuildConfig
 import com.example.nextgenweatherapp.api.response.WeatherResponse
